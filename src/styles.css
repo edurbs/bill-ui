@@ -53,3 +53,38 @@ label{
 .p-datatable .p-datatable-tbody>tr>td {
   padding: 0px 5px 0px 5px !important;
 }
+
+@media (min-width: 20em) {
+  .col-valor-header {
+    width: 120px;
+  }
+
+  .col-valor {
+    text-align: right !important;
+  }
+
+  .col-data-header {
+    width: 120px;
+  }
+
+  .col-data {
+    text-align: center !important;
+  }
+
+  .col-acoes-header {
+    width: 115px;
+  }
+
+  .col-acoes {
+    width: 115px;
+    text-align: center !important;
+  }
+
+  .col-acoes .p-button {
+    margin: 1px;
+  }
+}
+
+.navbar {
+  padding: 20px 0 10px;
+}
