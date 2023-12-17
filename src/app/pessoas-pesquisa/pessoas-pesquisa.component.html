@@ -15,9 +15,9 @@
 
     <div class="col-12">
       <h2>{{nome | uppercase}}</h2>
-      <h2>{{dataAniversario | date}}</h2>
-      <h2>{{preco | number }}</h2>
-      <h2>{{troco | currency}}</h2>
+      <h2>{{dataAniversario | date:'dd/MM/y'}}</h2>
+      <h2>{{preco | number:'1.2-4' }}</h2>
+      <h2>{{troco | currency:'BRL':true:'1.2-4'}}</h2>
     </div>
 
     <div class="col-12">
