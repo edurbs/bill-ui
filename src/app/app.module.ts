@@ -10,6 +10,7 @@ import { CampoColoridoDirective } from './campo-colorido.directive';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
     CampoColoridoDirective
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     TabViewModule,
     InputTextModule,

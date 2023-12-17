@@ -1,4 +1,31 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar>
 <app-lancamentos-pesquisa></app-lancamentos-pesquisa>
-<app-pessoas-pesquisa></app-pessoas-pesquisa>
-<!-- <app-lancamentos-pesquisa></app-lancamentos-pesquisa> -->
+<app-pessoas-pesquisa></app-pessoas-pesquisa> -->
+
+<div class="container">
+
+  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
+
+    <div>
+      <label>Nome</label>
+      <input type="text" ngModel name="nome">
+    </div>
+
+    <div>
+      <label>E-mail</label>
+      <input type="text" ngModel name="email">
+    </div>
+
+    <div>
+      <label>Profissão</label>
+      <select ngModel name="profissao">
+        <option value="" >Selecione</option>
+        <option>Engenheiro</option>
+        <option>Dentista</option>
+      </select>
+    </div>
+
+    <button type="submit">Salvar</button>
+
+  </form>
+</div>
