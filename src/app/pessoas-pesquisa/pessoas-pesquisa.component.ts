@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pessoas-pesquisa.component.css'],
 })
 export class PessoasPesquisaComponent implements OnInit {
+  corDoCampo = "green";
   pessoas = [
     {
       nome: 'Manoel Pinheiro',

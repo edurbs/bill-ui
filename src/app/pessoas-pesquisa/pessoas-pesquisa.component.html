@@ -5,10 +5,12 @@
     </div>
     <div class="col-12 p-fluid">
       <label>Nome</label>
-      <input pInputText type="text" class="form-control" appCampoColorido>
+      <input pInputText type="text" class="form-control" appCampoColorido #campo="campoColorido">
     </div>
     <div class="col-3">
       <button pButton type="submit">Pesquisar</button>
+      <button pButton (click)="campo.colorir">Colorir</button>
+      <button pButton (click)="campo.descolorir">Descolorir</button>
     </div>
   </div>
 
