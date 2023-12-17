@@ -1,0 +1,63 @@
+.col-nome-header {
+  width: 120px;
+  text-align: center !important;
+}
+
+.col-nome-content {
+  text-align: left !important;
+
+}
+
+.col-cidade-header {
+  width: 120px;
+  text-align: center !important;
+}
+
+.col-cidade-content {
+  text-align: left !important;
+
+}
+
+.col-estado-header {
+  width: 120px;
+  text-align: center !important;
+}
+
+.col-estado-content {
+  text-align: left !important;
+
+}
+
+.col-status-header {
+  width: 120px;
+  text-align: center !important;
+}
+
+.col-status-content {
+  text-align: left !important;
+
+}
+
+.col-status-content a{
+  text-decoration: none;
+  color: #404C51;
+}
+
+.col-acoes-header {
+  width: 115px;
+  text-align: center !important;
+}
+
+.col-acoes {
+  width: 115px;
+  text-align: center !important;
+}
+
+.col-acoes .p-button {
+  margin: 1px;
+}
+
+td {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
