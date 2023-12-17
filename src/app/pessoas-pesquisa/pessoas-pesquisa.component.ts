@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pessoas-pesquisa.component.css'],
 })
 export class PessoasPesquisaComponent implements OnInit {
-  corDoCampo = "green";
+  nome = "teste";
+  dataAniversario = new Date(1990, 3, 19);
+  preco = 12855.32;
+  troco = 0.57392;
   pessoas = [
     {
       nome: 'Manoel Pinheiro',
