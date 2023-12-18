@@ -4,30 +4,45 @@
 
 <div class="container">
 
-  {{cliente | json}}
+
   {{usuarioForm.valid }}
+  {{usuarioForm.invalid }}
+
+
 
   <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
 
     <div>
       <label>Nome</label>
-      <input type="text" [(ngModel)]="cliente.nome" name="nome" required minlength="10">
+      <input type="text" [(ngModel)]="cliente.nome" name="nome" required minlength="10" #nome="ngModel">
+      <div *ngIf="nome.hasError('required')">
+        Informe um nome válido.
+      </div>
+      <div *ngIf="nome.hasError('minlength')">
+        O nome deve ser completo.
+      </div>
     </div>
 
     <div>
       <label>E-mail</label>
-      <input type="text" [(ngModel)]="cliente.email" name="email" required email>
+      <input type="text" [(ngModel)]="cliente.email" name="email" required email #email="ngModel">
+      <div *ngIf="email.invalid">
+        Informe um email válido
+      </div>
     </div>
 
     <div>
       <label>Profissão</label>
-      <select [(ngModel)]="cliente.profissao" name="profissao" required>
+      <select [(ngModel)]="cliente.profissao" name="profissao" required #profissao="ngModel">
         <option value="" >Selecione</option>
         <option *ngFor="let profissao of profissoes" value="{{profissao}}">{{profissao}}</option>
       </select>
+      <div *ngIf="profissao.invalid">
+        Informe uma profissao
+      </div>
     </div>
 
-    <button type="submit" [disabled]="!usuarioForm.valid">Salvar</button>
+    <button type="submit" [disabled]="usuarioForm.invalid">Salvar</button>
 
   </form>
 </div>
