@@ -4,21 +4,23 @@
 
 <div class="container">
 
+  {{cliente | json}}
+
   <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
 
     <div>
       <label>Nome</label>
-      <input type="text" ngModel name="nome">
+      <input type="text" [(ngModel)]="cliente.nome" name="nome">
     </div>
 
     <div>
       <label>E-mail</label>
-      <input type="text" ngModel name="email">
+      <input type="text" [(ngModel)]="cliente.email" name="email">
     </div>
 
     <div>
       <label>Profissão</label>
-      <select ngModel name="profissao">
+      <select [(ngModel)]="cliente.profissao" name="profissao">
         <option value="" >Selecione</option>
         <option *ngFor="let profissao of profissoes" value="{{profissao}}">{{profissao}}</option>
       </select>
