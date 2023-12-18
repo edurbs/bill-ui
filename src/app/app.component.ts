@@ -21,9 +21,8 @@ export class AppComponent {
 
   salvar(usuarioForm: NgForm) {
 
-    // this.cliente.nome=usuarioForm.value.nome;
-    // this.cliente.email=usuarioForm.value.email;
-    // this.cliente.profissao=usuarioForm.value.profissao;
+    this.cliente = new Cliente();
+    usuarioForm.reset({profissao: ''});
 
     console.log(usuarioForm.value);
     console.log(this.cliente);
