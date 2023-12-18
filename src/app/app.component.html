@@ -8,6 +8,10 @@
   {{usuarioForm.valid }}
   {{usuarioForm.invalid }}
 
+  <div *ngIf="usuarioForm.dirty">
+    Preencha todos campos corretamente.
+  </div>
+
 
 
   <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
@@ -15,7 +19,7 @@
     <div>
       <label>Nome</label>
       <input type="text" [(ngModel)]="cliente.nome" name="nome" required minlength="10" #nome="ngModel">
-      <div *ngIf="nome.hasError('required')">
+      <div *ngIf="nome.hasError('required') && nome.dirty">
         Informe um nome válido.
       </div>
       <div *ngIf="nome.hasError('minlength')">
@@ -26,7 +30,7 @@
     <div>
       <label>E-mail</label>
       <input type="text" [(ngModel)]="cliente.email" name="email" required email #email="ngModel">
-      <div *ngIf="email.invalid">
+      <div *ngIf="email.invalid  && email.dirty">
         Informe um email válido
       </div>
     </div>
@@ -37,7 +41,7 @@
         <option value="" >Selecione</option>
         <option *ngFor="let profissao of profissoes" value="{{profissao}}">{{profissao}}</option>
       </select>
-      <div *ngIf="profissao.invalid">
+      <div *ngIf="profissao.invalid && profissao.dirty">
         Informe uma profissao
       </div>
     </div>
