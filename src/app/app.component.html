@@ -5,28 +5,29 @@
 <div class="container">
 
   {{cliente | json}}
+  {{usuarioForm.valid }}
 
   <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
 
     <div>
       <label>Nome</label>
-      <input type="text" [(ngModel)]="cliente.nome" name="nome">
+      <input type="text" [(ngModel)]="cliente.nome" name="nome" required minlength="10">
     </div>
 
     <div>
       <label>E-mail</label>
-      <input type="text" [(ngModel)]="cliente.email" name="email">
+      <input type="text" [(ngModel)]="cliente.email" name="email" required email>
     </div>
 
     <div>
       <label>Profissão</label>
-      <select [(ngModel)]="cliente.profissao" name="profissao">
+      <select [(ngModel)]="cliente.profissao" name="profissao" required>
         <option value="" >Selecione</option>
         <option *ngFor="let profissao of profissoes" value="{{profissao}}">{{profissao}}</option>
       </select>
     </div>
 
-    <button type="submit">Salvar</button>
+    <button type="submit" [disabled]="!usuarioForm.valid">Salvar</button>
 
   </form>
 </div>
