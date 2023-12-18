@@ -18,11 +18,11 @@
 
     <div>
       <label>Nome</label>
-      <input type="text" [(ngModel)]="cliente.nome" name="nome" required minlength="10" #nome="ngModel">
-      <div *ngIf="nome.hasError('required') && nome.dirty">
+      <input type="text" [(ngModel)]="cliente.nome" name="nome" required minlength="10" #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched">
+      <div *ngIf="nome.hasError('required') && nome.dirty" class="invalid-feedback">
         Informe um nome válido.
       </div>
-      <div *ngIf="nome.hasError('minlength')">
+      <div *ngIf="nome.hasError('minlength')" class="invalid-feedback">
         O nome deve ser completo.
       </div>
     </div>

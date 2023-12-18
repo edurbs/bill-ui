@@ -1,3 +1,7 @@
-input.ng-invalid.ng-dirty, select.ng-invalid.ng-dirty{
+.is-invalid {
   border: 2px solid red
+}
+
+.invalid-feedback {
+  color:red;
 }
