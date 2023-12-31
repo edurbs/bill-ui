@@ -4,11 +4,20 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-message',
   template: `
-    <div *ngIf="temErro()" class="ui-message ui-messages-error">
+    <div *ngIf="temErro()" class="p-message p-message-error">
       {{ text }}
-</div>
+    </div>
   `,
-  styles: [],
+  styles: [
+    `
+      .p-message-error {
+        padding: 5px;
+        margin: 0;
+        margin-top: 4px;
+
+      }
+    `,
+  ],
 })
 export class MessageComponent implements OnInit {
   @Input() error: string = '';
