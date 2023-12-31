@@ -18,6 +18,7 @@ import LancamentoCadastroComponent from './lancamento-cadastro/lancamento-cadast
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
+import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
     PessoasPesquisaComponent,
     CampoColoridoDirective,
     LancamentoCadastroComponent,
+    PessoaCadastroComponent,
   ],
   imports: [
     FormsModule,
