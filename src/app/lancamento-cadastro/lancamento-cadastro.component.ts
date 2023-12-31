@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-interface Tipo {
-  label: string;
-  value: string;
-}
-
 @Component({
   selector: 'app-lancamento-cadastro',
   templateUrl: './lancamento-cadastro.component.html',
@@ -12,13 +7,24 @@ interface Tipo {
 })
 
 export default class LancamentoCadastroComponent implements OnInit {
-  tipos: Tipo[];
+
+  tipos = [
+    {label: 'Receita', value:'RECEITA'},
+    {label: 'Despesa', value:'DESPESA'}
+  ];
+
+  categorias = [
+    {label: 'Alimentação', value: 1},
+    {label: 'Transporte', value: 2}
+  ];
+
+  pessoas = [
+    {label: 'João da Silva', value: 1},
+    {label: 'Sebastião Souza', value: 2},
+    {label: 'Maria Abadia', value: 3}
+  ];
 
   constructor() {
-    this.tipos = [
-      {label: 'Receita', value:'RECEITA'},
-      {label: 'Despesa', value:'DESPESA'}
-    ]
   }
 
   ngOnInit(): void {}

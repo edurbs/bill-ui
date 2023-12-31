@@ -31,13 +31,13 @@
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
-        <label>Categoria </label>
-        <input pInputText="text">
+        <label>Categoria {{categoria.value}} </label>
+        <p-dropdown [options]="categorias" placeholder="Selecione" #categoria></p-dropdown>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
-        <label>Pessoa </label>
-        <input pInputText="text">
+        <label>Pessoa {{pessoa.value}} </label>
+        <p-dropdown [options]="pessoas" [filter]="true" placeholder="Selecione" #pessoa></p-dropdown>
       </div>
 
       <div class="col-12 md:col-12 p-fluid">
