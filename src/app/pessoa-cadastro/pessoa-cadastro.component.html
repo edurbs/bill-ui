@@ -1,5 +1,5 @@
 <div class="content">
-  <form>
+  <ng-form #form="ngForm">
     <div class="grid">
 
       <div class="col-12">
@@ -54,11 +54,11 @@
       </div>
 
       <div class="col-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="submit" label="Salvar" [disabled]="!form.valid"></button>
         <button pButton type="button" label="Novo"></button>
         <a href="javascript:;">Voltar para a pesquisa</a>
       </div>
 
     </div>
-  </form>
+  </ng-form>
 </div>

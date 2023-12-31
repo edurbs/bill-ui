@@ -1,5 +1,5 @@
 <div class="container">
-  <form autocomplete="off">
+  <ng-form #form="ngForm">
     <div class="grid">
 
       <div class="col-12">
@@ -12,12 +12,12 @@
 
       <div class="col-6 md:col-3 p-fluid">
         <label>Vencimento </label>
-        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" name="vencimento" [required]="true" ngModel #vencimento="ngModel"></p-calendar>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
         <label>{{tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}} </label>
-        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" [required]="true" name="tipo" ngModel #tipo="ngModel"></p-calendar>
       </div>
 
       <div class="col-12 md:col-9 p-fluid">
@@ -35,17 +35,18 @@
 
       <div class="col-12 md:col-3 p-fluid">
         <label>Valor </label>
-        <p-inputNumber mode="currency" currency="BRL" placeholder="0,00"></p-inputNumber>
+        <p-inputNumber mode="currency" currency="BRL" placeholder="0,00" [required]="true" ngModel #valor="ngModel" name="valor"></p-inputNumber>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <label>Categoria {{categoria.value}} </label>
-        <p-dropdown [options]="categorias" placeholder="Selecione" #categoria></p-dropdown>
+        <p-dropdown [options]="categorias" placeholder="Selecione" ngModel #categoria="ngModel" [required]="true" name="categoria"></p-dropdown>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <label>Pessoa {{pessoa.value}} </label>
-        <p-dropdown [options]="pessoas" [filter]="true" placeholder="Selecione" #pessoa></p-dropdown>
+        <p-dropdown [options]="pessoas" ngModel [filter]="true" placeholder="Selecione" #pessoa="ngModel" [required]="true" name="pessoa"></p-dropdown>
+        <app-message [control]="pessoa.control" error="required" text="Informe uma pessoa"></app-message>
       </div>
 
       <div class="col-12 md:col-12 p-fluid">
@@ -54,11 +55,11 @@
       </div>
 
       <div class="col-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="submit" label="Salvar" [disabled]="form.invalid"></button>
         <button pButton type="button" label="Novo" class="p-button-info"></button>
         <a href="javascript:;">Voltar para a pesquisa</a>
       </div>
 
     </div>
-  </form>
+  </ng-form>
 </div>
