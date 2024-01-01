@@ -25,11 +25,11 @@
         <input  pInputText type="text" name="descricao" ngModel #descricao="ngModel"
          minlength="5" required>
 
-        <app-message [control]="descricao.control" error="required"
+        <!-- <app-message [control]="descricao.control" error="required"
         text="Informe uma descrição"></app-message>
 
         <app-message [control]="descricao.control" error="minlength"
-        text="Mínimo de {{descricao.errors?.['minlength']?.requiredLength}}"></app-message>
+        text="Mínimo de {{descricao.errors?.['minlength']?.requiredLength}}"></app-message> -->
 
       </div>
 
@@ -46,7 +46,7 @@
       <div class="col-12 md:col-6 p-fluid">
         <label>Pessoa {{pessoa.value}} </label>
         <p-dropdown [options]="pessoas" ngModel [filter]="true" placeholder="Selecione" #pessoa="ngModel" [required]="true" name="pessoa"></p-dropdown>
-        <app-message [control]="pessoa.control" error="required" text="Informe uma pessoa"></app-message>
+        <!-- <app-message [control]="pessoa.control" error="required" text="Informe uma pessoa"></app-message> -->
       </div>
 
       <div class="col-12 md:col-12 p-fluid">
