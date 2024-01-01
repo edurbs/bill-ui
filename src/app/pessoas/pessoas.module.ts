@@ -15,6 +15,7 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 import { CampoColoridoDirective } from '../campo-colorido.directive';
+import { SharedModule } from '../shared/shared.module';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
@@ -45,6 +46,8 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
     InputNumberModule,
     MessageModule,
     FormsModule,
+
+    SharedModule
   ],
   exports: [PessoasPesquisaComponent, PessoaCadastroComponent],
 })

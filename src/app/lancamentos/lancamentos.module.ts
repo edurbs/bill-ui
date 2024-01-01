@@ -14,6 +14,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
+import { SharedModule } from '../shared/shared.module';
 import LancamentoCadastroComponent from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
@@ -44,6 +45,7 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 
     MessageModule,
     FormsModule,
+    SharedModule
   ],
   exports: [LancamentosPesquisaComponent, LancamentoCadastroComponent],
 })
