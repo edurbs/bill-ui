@@ -31,4 +31,8 @@ export class PessoasPesquisaComponent implements OnInit {
       .listarTodas()
       .then((resultado) => (this.pessoas = resultado.pessoas));
   }
+
+  excluir(pessoa: any): Promise<any> {
+    return this.pessoaService.excluir(pessoa);
+  }
 }

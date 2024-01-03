@@ -53,4 +53,10 @@ export class PessoaService {
     .toPromise()
     .then((response: any) =>  response['content']);
   }
+
+  excluir(pessoa: any): Promise<any> {
+    return this.httpClient
+      .delete<void>(`${this.pessoasUrl}/${pessoa.id}`, { headers: this.headers })
+      .toPromise();
+  }
 }
