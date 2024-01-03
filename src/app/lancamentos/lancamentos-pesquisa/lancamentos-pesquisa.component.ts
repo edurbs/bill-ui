@@ -1,5 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
 
 
@@ -17,7 +18,8 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   constructor(
     private lancamentoService: LancamentoService,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private errorHandler: ErrorHandlerService
     ) {}
 
   ngOnInit(): void {
@@ -73,10 +75,12 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.lancamentoService.pesquisar(this.filtro).then((resultado) => {
       this.totalRegistros = resultado.total;
       this.lancamentos = resultado.lancamentos;
-    });
+    })
+    .catch(erro => this.errorHandler.handle(erro));
   }
 
   excluir(lancamento: any): Promise<any> {
-    return this.lancamentoService.excluir(lancamento.id);
+    return this.lancamentoService.excluir(lancamento.id)
+    .catch(erro => this.errorHandler.handle(erro));
   }
 }
