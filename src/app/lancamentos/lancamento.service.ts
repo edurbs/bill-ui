@@ -2,10 +2,12 @@ import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-export interface LancamentoFiltro {
-  description?: string;
-  fromDueDate?: Date;
-  toDueDate?: Date;
+export class LancamentoFiltro {
+  descricao?: string;
+  dataVencimentoInicio?: Date;
+  dataVencimentoFim?: Date;
+  pagina = 0;
+  itensPorPagina = 5;
 }
 
 @Injectable({
@@ -23,30 +25,41 @@ export class LancamentoService {
 
   pesquisar( filtro: LancamentoFiltro): Promise<any> {
 
-    let params = new HttpParams();
+    let params = new HttpParams()
+      .set('page', filtro.pagina)
+      .set('size', filtro.itensPorPagina);
 
 
-    if (filtro.description) {
-      params = params.set('description', filtro.description);
+    if (filtro.descricao) {
+      params = params.set('description', filtro.descricao);
     }
 
-    if (filtro.fromDueDate) {
+    if (filtro.dataVencimentoInicio) {
       params = params.set(
         'fromDueDate',
-        this.datePipe.transform(filtro.fromDueDate, 'yyyy-MM-dd')!
+        this.datePipe.transform(filtro.dataVencimentoInicio, 'yyyy-MM-dd')!
       );
     }
 
-    if (filtro.toDueDate) {
+    if (filtro.dataVencimentoFim) {
       params = params.set(
         'toDueDate',
-        this.datePipe.transform(filtro.toDueDate, 'yyyy-MM-dd')!
+        this.datePipe.transform(filtro.dataVencimentoFim, 'yyyy-MM-dd')!
       );
     }
 
     return this.http
       .get(`${this.lancamentosUrl}/?projection`, { headers: this.headers, params: params })
       .toPromise()
-      .then((response: any) => response['content']);
+      .then((response: any) => {
+        const lancamentos = response['content'];
+
+        const resultado = {
+          lancamentos,
+          total: response['totalElements'],
+        };
+
+        return resultado;
+      });
   }
 }
