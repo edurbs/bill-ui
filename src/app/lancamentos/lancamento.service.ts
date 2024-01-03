@@ -62,4 +62,11 @@ export class LancamentoService {
         return resultado;
       });
   }
+
+  excluir(codigo: number): Promise<any> {
+    return this.http
+      .delete(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
+      .toPromise();
+  }
+
 }

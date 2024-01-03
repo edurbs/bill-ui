@@ -8,7 +8,6 @@ import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
   styleUrls: ['./lancamentos-pesquisa.component.css'],
 })
 export class LancamentosPesquisaComponent implements OnInit {
-
   totalRegistros: number = 0;
 
   @Output() filtro = new LancamentoFiltro();
@@ -23,11 +22,13 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   pesquisar(pagina: number = 0): void {
     this.filtro.pagina = pagina;
-    this.lancamentoService
-      .pesquisar(this.filtro)
-      .then(resultado => {
-        this.totalRegistros = resultado.total;
-        this.lancamentos = resultado.lancamentos;
-      });
+    this.lancamentoService.pesquisar(this.filtro).then((resultado) => {
+      this.totalRegistros = resultado.total;
+      this.lancamentos = resultado.lancamentos;
+    });
+  }
+
+  excluir(lancamento: any): Promise<any> {
+    return this.lancamentoService.excluir(lancamento.id);
   }
 }
