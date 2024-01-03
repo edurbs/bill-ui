@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class PessoaFiltro {
   nome?: string;
   pagina = 0;
-  itensPorPagina = 3;
+  itensPorPagina = 5;
 }
 
 @Injectable({
@@ -52,6 +52,18 @@ export class PessoaService {
     })
     .toPromise()
     .then((response: any) =>  response['content']);
+  }
+
+  atualizarStatus(pessoa: any): Promise<any> {
+    let complementoUrl: string = `${this.pessoasUrl}/${pessoa.id}/`;
+    if(pessoa.active) {
+      complementoUrl += 'inactivate';
+    }else{
+      complementoUrl += 'activate';
+    }
+    return this.httpClient
+      .put<void>(complementoUrl, null, { headers: this.headers })
+      .toPromise();
   }
 
   excluir(pessoa: any): Promise<any> {

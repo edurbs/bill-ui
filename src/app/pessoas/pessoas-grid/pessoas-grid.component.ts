@@ -23,6 +23,17 @@ export class PessoasGridComponent implements OnInit {
     this.pessoaPesquisaComponent.pesquisar(pagina);
   }
 
+  atualizarStatus(pessoa: any) {
+    this.pessoaPesquisaComponent.atualizarStatus(pessoa).then(() => {
+      this.grid.reset();
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Pessoa atualizada com sucesso',
+      })
+    })
+  }
+
   confirmarExclusao(pessoa: any) {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir?',

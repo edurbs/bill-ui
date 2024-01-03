@@ -16,6 +16,10 @@ export class PessoasPesquisaComponent implements OnInit {
     //this.listarTodas();
   }
 
+  atualizarStatus(pessoa: any): Promise<any> {
+    return this.pessoaService.atualizarStatus(pessoa);
+  }
+
   pesquisar(pagina: number = 0) {
     this.pessoaFiltro.pagina = pagina;
     this.pessoaService
