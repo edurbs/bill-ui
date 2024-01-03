@@ -40,6 +40,12 @@ export class PessoasGridComponent implements OnInit {
         summary: 'Sucesso',
         detail: 'Pessoa excluída com sucesso',
       })
+    }).catch((erro) => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Erro ao excluir pessoa: ' + erro.error[0].userMessage,
+      })
     });
   }
 }
