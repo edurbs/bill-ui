@@ -1,6 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -13,6 +15,8 @@ import { LancamentoService } from './lancamentos/lancamento.service';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoaService } from './pessoas/pessoa.service';
 import { PessoasModule } from './pessoas/pessoas.module';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -37,4 +41,6 @@ import { PessoasModule } from './pessoas/pessoas.module';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+
+}
