@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { PessoaFiltro, PessoaService } from '../pessoa.service';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -6,50 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pessoas-pesquisa.component.css'],
 })
 export class PessoasPesquisaComponent implements OnInit {
-  nome = "teste";
-  dataAniversario = new Date(1990, 3, 19);
-  preco = 12855.32;
-  troco = 0.57392;
-  pessoas = [
-    {
-      nome: 'Manoel Pinheiro',
-      cidade: 'Uberlância',
-      estado: 'MG',
-      ativo: true,
-    },
-    {
-      nome: 'Sebastião da Silva',
-      cidade: 'São Paulo',
-      estado: 'SP',
-      ativo: false,
-    },
-    {
-      nome: 'Carla Souza',
-      cidade: 'Florianópolis',
-      estado: 'SC',
-      ativo: true,
-    },
-    {
-      nome: 'Luís Pereira',
-      cidade: 'Curitiba',
-      estado: 'PR',
-      ativo: false,
-    },
-    {
-      nome: 'Vilmar Andrade',
-      cidade: 'Rio de Janeiro',
-      estado: 'RJ',
-      ativo: false,
-    },
-    {
-      nome: 'Eduardo Soares',
-      cidade: 'Camaducaia',
-      estado: 'MG',
-      ativo: true,
-    },
-  ];
+  pessoas: any[] = [];
+  totalRegistros: number = 0;
+  @Output() pessoaFiltro = new PessoaFiltro();
+  constructor(private pessoaService: PessoaService) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    //this.listarTodas();
+  }
 
-  ngOnInit(): void {}
+  pesquisar(pagina: number = 0) {
+    this.pessoaFiltro.pagina = pagina;
+    this.pessoaService
+      .pesquisar(this.pessoaFiltro)
+      .then(resultado => {
+        this.totalRegistros = resultado.total;
+        this.pessoas = resultado.pessoas;
+      });
+  }
+
+  listarTodas() {
+    this.pessoaService
+      .listarTodas()
+      .then((resultado) => (this.pessoas = resultado.pessoas));
+  }
 }

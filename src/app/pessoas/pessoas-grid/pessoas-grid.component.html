@@ -1,4 +1,10 @@
-<p-table [value]="pessoas" [paginator]="true" [rows]="5" [responsive]="true">
+<p-table [value]="pessoas"
+[paginator]="true"
+[rows]="filtro.itensPorPagina"
+[lazy]="true"
+[totalRecords]="totalRegistros"
+(onLazyLoad)="aoMudarPagina($event)"
+[responsive]="true">
   <ng-template pTemplate="header">
     <tr>
       <th class="col-nome-header">Nome</th>
@@ -10,12 +16,12 @@
   </ng-template>
   <ng-template pTemplate="body" let-pessoa>
     <tr>
-      <td class="col-nome-content">{{pessoa.nome}}</td>
-      <td class="col-cidade-content">{{pessoa.cidade}}</td>
-      <td class="col-estado-content">{{pessoa.estado}}</td>
+      <td class="col-nome-content">{{pessoa.name}}</td>
+      <td class="col-cidade-content">{{pessoa.address.city}}</td>
+      <td class="col-estado-content">{{pessoa.address.state}}</td>
       <td class="col-status-content">
-        <a href="#" pTooltip="{{pessoa.ativo === true ? 'Desativar' : 'Ativar'}}" tooltipPosition="top">
-          {{pessoa.ativo === true ? "Ativo" : "Inativo"}}
+        <a href="#" pTooltip="{{pessoa.active === true ? 'Desativar' : 'Ativar'}}" tooltipPosition="top">
+          {{pessoa.active === true ? "Ativo" : "Inativo"}}
         </a>
       </td>
       <td class="col-acoes">
@@ -24,4 +30,11 @@
       </td>
     </tr>
   </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5">
+          Nenhuma pessoa encontrada
+        </td>
+      </tr>
+    </ng-template>
 </p-table>
