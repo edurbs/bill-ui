@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
 
 
@@ -9,19 +9,25 @@ import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
-  filtro = new LancamentoFiltro();
+  totalRegistros: number = 0;
+
+  @Output() filtro = new LancamentoFiltro();
 
   lancamentos: any[] = [];
 
   constructor(private lancamentoService: LancamentoService) {}
 
   ngOnInit(): void {
-    this.pesquisar();
+    //this.pesquisar();
   }
 
-  pesquisar(): void {
+  pesquisar(pagina: number = 0): void {
+    this.filtro.pagina = pagina;
     this.lancamentoService
       .pesquisar(this.filtro)
-      .then((resultado) => (this.lancamentos = resultado.lancamentos));
+      .then(resultado => {
+        this.totalRegistros = resultado.total;
+        this.lancamentos = resultado.lancamentos;
+      });
   }
 }
