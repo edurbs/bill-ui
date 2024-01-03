@@ -65,7 +65,7 @@ export class LancamentoService {
 
   excluir(codigo: number): Promise<any> {
     return this.http
-      .delete(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
+      .delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
       .toPromise();
   }
 
