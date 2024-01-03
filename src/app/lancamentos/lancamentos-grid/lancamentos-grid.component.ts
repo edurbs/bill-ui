@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { LancamentoFiltro } from '../lancamento.service';
 import { LancamentosPesquisaComponent } from '../lancamentos-pesquisa/lancamentos-pesquisa.component';
 
@@ -12,11 +12,13 @@ export class LancamentosGridComponent implements OnInit {
   @Input() lancamentos: any[] = [];
   @Input() totalRegistros: number = 0;
   @Input() filtro: LancamentoFiltro = new LancamentoFiltro();
+
   @ViewChild('lancamentosTable', { static: true }) grid: any;
 
   constructor(
     private lancamentosPesquisaComponent: LancamentosPesquisaComponent,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {}
@@ -27,6 +29,15 @@ export class LancamentosGridComponent implements OnInit {
       pagina = event.first / event.rows;
     }
     this.lancamentosPesquisaComponent.pesquisar(pagina);
+  }
+
+  confirmarExclusao(lancamento: any) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.excluir(lancamento);
+      },
+    })
   }
 
   excluir(lancamento: any) {
