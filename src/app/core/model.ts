@@ -15,7 +15,6 @@ export class Person  {
   name?: string;
   active?: boolean;
   address?: Address = new Address();
-
 }
 
 export class Address  {
@@ -26,7 +25,6 @@ export class Address  {
   city?: string;
   state?: string;
   pobox?: string;
-
 }
 
 export class Category  {

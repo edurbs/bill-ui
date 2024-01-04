@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Person } from '../core/model';
 
 export class PessoaFiltro {
   nome?: string;
@@ -69,6 +70,12 @@ export class PessoaService {
   excluir(pessoa: any): Promise<any> {
     return this.httpClient
       .delete<void>(`${this.pessoasUrl}/${pessoa.id}`, { headers: this.headers })
+      .toPromise();
+  }
+
+  adicionar(pessoa: Person): Promise<Person | undefined>{
+    return this.httpClient
+      .post<Person>(this.pessoasUrl, pessoa, {headers: this.headers})
       .toPromise();
   }
 }
