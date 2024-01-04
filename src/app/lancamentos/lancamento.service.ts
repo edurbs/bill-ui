@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Bill } from '../core/model';
 
 export class LancamentoFiltro {
   descricao?: string;
@@ -23,12 +24,10 @@ export class LancamentoService {
 
   constructor(private http: HttpClient, private datePipe: DatePipe) {}
 
-  pesquisar( filtro: LancamentoFiltro): Promise<any> {
-
+  pesquisar(filtro: LancamentoFiltro): Promise<any> {
     let params = new HttpParams()
       .set('page', filtro.pagina)
       .set('size', filtro.itensPorPagina);
-
 
     if (filtro.descricao) {
       params = params.set('description', filtro.descricao);
@@ -49,7 +48,10 @@ export class LancamentoService {
     }
 
     return this.http
-      .get(`${this.lancamentosUrl}/?projection`, { headers: this.headers, params: params })
+      .get(`${this.lancamentosUrl}/?projection`, {
+        headers: this.headers,
+        params: params,
+      })
       .toPromise()
       .then((response: any) => {
         const lancamentos = response['content'];
@@ -65,8 +67,15 @@ export class LancamentoService {
 
   excluir(codigo: number): Promise<any> {
     return this.http
-      .delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
+      .delete<void>(`${this.lancamentosUrl}/${codigo}`, {
+        headers: this.headers,
+      })
       .toPromise();
   }
 
+  adicionar(lancamento: Bill): Promise<Bill | undefined> {
+    return this.http
+      .post<Bill>(this.lancamentosUrl, lancamento, {headers: this.headers})
+      .toPromise();
+  }
 }

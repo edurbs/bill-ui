@@ -1,29 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+import { MessageService } from 'primeng/api';
 import { CategoriaService } from 'src/app/categorias/categoria.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { Bill, Category, Person } from 'src/app/core/model';
 import { PessoaService } from 'src/app/pessoas/pessoa.service';
-
-export interface Category {
-  id: number;
-  name: string;
-};
-
-export interface Person{
-  id: number;
-  name: string;
-  active: boolean;
-  address: Address;
-}
-
-export interface Address {
-  street: string;
-  number: string;
-  complement: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-  pobox: string;
-}
+import { LancamentoService } from '../lancamento.service';
 
 export interface PDropDown {
   label: string;
@@ -37,20 +20,24 @@ export interface PDropDown {
   styleUrls: ['./lancamento-cadastro.component.css'],
 })
 export default class LancamentoCadastroComponent implements OnInit {
-
   tipos = [
-    {label: 'Receita', value:'RECEITA'},
-    {label: 'Despesa', value:'DESPESA'}
+    { label: 'Receita', value: 'RECEITA' },
+    { label: 'Despesa', value: 'DESPESA' },
   ];
 
   categorias: PDropDown[] = [];
 
   pessoas: PDropDown[] = [];
 
-  constructor(private categoriaService: CategoriaService,
+  bill: Bill = new Bill();
+
+  constructor(
+    private categoriaService: CategoriaService,
     private pessoaService: PessoaService,
-    private errorHandler: ErrorHandlerService) {
-  }
+    private errorHandler: ErrorHandlerService,
+    private lancamentoService: LancamentoService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.carregarCategorias();
@@ -58,19 +45,47 @@ export default class LancamentoCadastroComponent implements OnInit {
   }
 
   carregarCategorias() {
-    return this.categoriaService.listarTodas().then(categorias => {
-      this.categorias = categorias.map((c: Category) => ({label: c.name, value: c.id}));
-    }).catch(erro => {
-      this.errorHandler.handle(erro)
-    })
+    return this.categoriaService
+      .listarTodas()
+      .then((categorias) => {
+        this.categorias = categorias.map((c: Category) => ({
+          label: c.name,
+          value: c.id,
+        }));
+      })
+      .catch((erro) => {
+        this.errorHandler.handle(erro);
+      });
   }
 
-  carregarPessoas(){
-    return this.pessoaService.listarTodas()
-    .then(pessoas => {
-        this.pessoas = pessoas.map((pessoa: Person)=>({label: pessoa.name, value: pessoa.id}));
-    }).catch(erro => {
-      this.errorHandler.handle(erro);
-    });
+  carregarPessoas() {
+    return this.pessoaService
+      .listarTodas()
+      .then((pessoas) => {
+        this.pessoas = pessoas.map((pessoa: Person) => ({
+          label: pessoa.name,
+          value: pessoa.id,
+        }));
+      })
+      .catch((erro) => {
+        this.errorHandler.handle(erro);
+      });
   }
+
+  salvar(form: NgForm) {
+    this.lancamentoService.adicionar(this.bill)
+      .then(()=>{
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Lançamento criado com sucesso',
+        })
+        form.reset();
+        this.bill = new Bill();
+      })
+      .catch(error => this.errorHandler.handle(error));
+
+  }
+
+
 }

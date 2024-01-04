@@ -1,5 +1,5 @@
 <div class="container">
-  <ng-form #form="ngForm">
+  <form #form="ngForm" (ngSubmit)="salvar(form)">
     <div class="grid">
 
       <div class="col-12">
@@ -7,22 +7,22 @@
       </div>
 
       <div class="col-12">
-        <p-selectButton [options]="tipos" #tipo></p-selectButton>
+        <p-selectButton [options]="tipos" #tipo [(ngModel)]="bill.type" name="type"></p-selectButton>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
         <label>Vencimento </label>
-        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" name="vencimento" [required]="true" ngModel #vencimento="ngModel"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" [required]="true" name="dueDate" [(ngModel)]="bill.dueDate" #vencimento="ngModel" ></p-calendar>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
         <label>{{tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}} </label>
-        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" [required]="true" name="tipo" ngModel #tipo="ngModel"></p-calendar>
+        <p-calendar [(ngModel)]="bill.payDate" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true" name="payDate" ngModel #pagamento="ngModel"></p-calendar>
       </div>
 
       <div class="col-12 md:col-9 p-fluid">
         <label>Descrição </label>
-        <input  pInputText type="text" name="descricao" ngModel #descricao="ngModel"
+        <input  [(ngModel)]="bill.description" pInputText type="text" name="description" ngModel #descricao="ngModel"
          minlength="5" required>
 
         <app-message [control]="descricao.control" error="required"
@@ -35,23 +35,23 @@
 
       <div class="col-12 md:col-3 p-fluid">
         <label>Valor </label>
-        <p-inputNumber mode="currency" currency="BRL" placeholder="0,00" [required]="true" ngModel #valor="ngModel" name="valor"></p-inputNumber>
+        <p-inputNumber [(ngModel)]="bill.amount" mode="currency" currency="BRL" placeholder="0,00" [required]="true" ngModel #valor="ngModel" name="amount"></p-inputNumber>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <label>Categoria {{categoria.value}} </label>
-        <p-dropdown [options]="categorias" placeholder="Selecione" ngModel #categoria="ngModel" [required]="true" name="categoria"></p-dropdown>
+        <p-dropdown [(ngModel)]="bill.category!.id" [options]="categorias" placeholder="Selecione" ngModel #categoria="ngModel" [required]="true" name="category"></p-dropdown>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <label>Pessoa {{pessoa.value}} </label>
-        <p-dropdown [options]="pessoas" ngModel [filter]="true" placeholder="Selecione" #pessoa="ngModel" [required]="true" name="pessoa"></p-dropdown>
+        <p-dropdown [(ngModel)]="bill.person!.id" [options]="pessoas" ngModel [filter]="true" placeholder="Selecione" #pessoa="ngModel" [required]="true" name="personId"></p-dropdown>
         <app-message [control]="pessoa.control" error="required" text="Informe uma pessoa"></app-message>
       </div>
 
       <div class="col-12 md:col-12 p-fluid">
         <label>Observação </label>
-        <textarea pInputTextarea rows="3"></textarea>
+        <textarea [(ngModel)]="bill.notes" name="notes" pInputTextarea rows="3"></textarea>
       </div>
 
       <div class="col-12">
@@ -61,5 +61,5 @@
       </div>
 
     </div>
-  </ng-form>
+  </form>
 </div>
