@@ -7,6 +7,7 @@ import localePt from '@angular/common/locales/pt';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -25,6 +26,7 @@ registerLocaleData(localePt, 'pt-BR');
     CommonModule,
     ToastModule,
     ConfirmDialogModule,
+    RouterModule
 
 
   ],
