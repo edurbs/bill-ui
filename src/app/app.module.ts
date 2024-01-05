@@ -1,42 +1,23 @@
-import { NgModule } from '@angular/core';
-
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
-import { RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
-import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
-import LancamentoCadastroComponent from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
-import { LancamentosPesquisaComponent } from './lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
-import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
-import { PessoasPesquisaComponent } from './pessoas/pessoas-pesquisa/pessoas-pesquisa.component';
 import { PessoasModule } from './pessoas/pessoas.module';
 
 
 registerLocaleData(localePt);
 
-const routes: Routes = [
-  { path: '', redirectTo: 'lancamentos', pathMatch: 'full'},
-  { path: 'lancamentos', component: LancamentosPesquisaComponent },
-  { path: 'lancamentos/novo', component: LancamentoCadastroComponent },
-  { path: 'lancamentos/:id', component: LancamentoCadastroComponent },
-  { path: 'pessoas', component: PessoasPesquisaComponent },
-  { path: 'pessoas/novo', component: PessoaCadastroComponent },
-  { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
-  { path: '**', component: PaginaNaoEncontradaComponent}
-];
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    RouterModule.forRoot(routes),
-
     CoreModule,
     LancamentosModule,
-    PessoasModule
+    PessoasModule,
+    AppRoutingModule
   ],
   bootstrap: [AppComponent],
 })
