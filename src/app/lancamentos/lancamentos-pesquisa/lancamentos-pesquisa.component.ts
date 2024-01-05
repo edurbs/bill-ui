@@ -1,4 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { PrimeNGConfig } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
@@ -19,10 +20,14 @@ export class LancamentosPesquisaComponent implements OnInit {
   constructor(
     private lancamentoService: LancamentoService,
     private primengConfig: PrimeNGConfig,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private title: Title
     ) {}
 
   ngOnInit(): void {
+
+    this.title.setTitle('Pesquisa de lançamentos');
+
     this.primengConfig.setTranslation({
       accept: 'Aceitar',
       reject: 'Cancelar',

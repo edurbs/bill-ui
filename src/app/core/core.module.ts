@@ -4,7 +4,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule } from '@angular/router';
@@ -38,6 +38,7 @@ registerLocaleData(localePt, 'pt-BR');
     ErrorHandlerService,
     MessageService,
     ConfirmationService,
+    Title,
 
 
     LancamentoService,
