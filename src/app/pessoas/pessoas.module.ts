@@ -50,6 +50,6 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
     InputMaskModule,
     SharedModule
   ],
-  exports: [PessoasPesquisaComponent, PessoaCadastroComponent],
+  exports: [],
 })
 export class PessoasModule {}

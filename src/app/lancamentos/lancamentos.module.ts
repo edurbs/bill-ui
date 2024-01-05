@@ -49,6 +49,6 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
     FormsModule,
     SharedModule
   ],
-  exports: [LancamentosPesquisaComponent, LancamentoCadastroComponent],
+  exports: [],
 })
 export class LancamentosModule {}
