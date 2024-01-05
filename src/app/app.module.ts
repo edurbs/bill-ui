@@ -18,6 +18,7 @@ import { PessoasModule } from './pessoas/pessoas.module';
 registerLocaleData(localePt);
 
 const routes: Routes = [
+  { path: '', redirectTo: 'lancamentos', pathMatch: 'full'},
   { path: 'lancamentos', component: LancamentosPesquisaComponent },
   { path: 'lancamentos/novo', component: LancamentoCadastroComponent },
   { path: 'lancamentos/:id', component: LancamentoCadastroComponent },
