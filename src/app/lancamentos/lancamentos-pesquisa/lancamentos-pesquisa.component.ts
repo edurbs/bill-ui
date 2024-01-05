@@ -83,4 +83,5 @@ export class LancamentosPesquisaComponent implements OnInit {
     return this.lancamentoService.excluir(lancamento.id)
     .catch(erro => this.errorHandler.handle(erro));
   }
+
 }

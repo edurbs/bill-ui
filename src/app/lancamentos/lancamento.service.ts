@@ -78,4 +78,29 @@ export class LancamentoService {
       .post<Bill>(this.lancamentosUrl, lancamento, {headers: this.headers})
       .toPromise();
   }
+
+  atualizar (lancamento: |Bill): Promise<Bill|undefined>{
+    return this.http.put<Bill>(`${this.lancamentosUrl}/${lancamento.id}`, {headers: this.headers})
+    .toPromise();
+  }
+
+  buscarPorCodigo(codigo: number): Promise<Bill|undefined>{
+    return this.http.get<Bill>(`${this.lancamentosUrl}/${codigo}`, {headers: this.headers})
+    .toPromise()
+    .then((response: any)=>{
+      this.converterStringsParaDatas([response]);
+      return response;
+    });
+  }
+
+  private converterStringsParaDatas(lancamentos: Bill[]){
+    for(const lancamento of lancamentos){
+      let offset = new Date().getTimezoneOffset()*60000;
+      lancamento.dueDate = new Date(new Date(lancamento.dueDate!).getTime()+offset);
+      if(lancamento.payDate){
+        lancamento.payDate = new Date(new Date(lancamento.payDate).getTime()+offset);
+      }
+    }
+  }
+
 }

@@ -1,5 +1,6 @@
 
 export class Bill  {
+  id?: number;
   description?: string;
   dueDate?: Date;
   payDate?: Date;

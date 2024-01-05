@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { LancamentoFiltro } from '../lancamento.service';
 import { LancamentosPesquisaComponent } from '../lancamentos-pesquisa/lancamentos-pesquisa.component';
@@ -18,10 +19,13 @@ export class LancamentosGridComponent implements OnInit {
   constructor(
     private lancamentosPesquisaComponent: LancamentosPesquisaComponent,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   aoMudarPagina(event: LazyLoadEvent) {
     let pagina = 0;

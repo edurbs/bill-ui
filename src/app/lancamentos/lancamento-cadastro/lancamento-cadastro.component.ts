@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CategoriaService } from 'src/app/categorias/categoria.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
@@ -24,11 +25,8 @@ export default class LancamentoCadastroComponent implements OnInit {
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' },
   ];
-
   categorias: PDropDown[] = [];
-
   pessoas: PDropDown[] = [];
-
   bill: Bill = new Bill();
 
   constructor(
@@ -36,12 +34,33 @@ export default class LancamentoCadastroComponent implements OnInit {
     private pessoaService: PessoaService,
     private errorHandler: ErrorHandlerService,
     private lancamentoService: LancamentoService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    const codigoLancamento = this.route.snapshot.params['id'];
+    if (codigoLancamento) {
+      this.carregarLancamento(codigoLancamento);
+    }
+
     this.carregarCategorias();
     this.carregarPessoas();
+  }
+
+  get editando(): boolean {
+    return Boolean(this.bill.id)
+  }
+
+
+  carregarLancamento(codigo: number){
+    this.lancamentoService.buscarPorCodigo(codigo)
+    .then(lancamento => {
+      if(lancamento){
+        this.bill = lancamento;
+      }
+    })
+    .catch(error => this.errorHandler.handle(error));
   }
 
   carregarCategorias() {
