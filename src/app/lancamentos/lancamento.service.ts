@@ -80,8 +80,12 @@ export class LancamentoService {
   }
 
   atualizar (lancamento: |Bill): Promise<Bill|undefined>{
-    return this.http.put<Bill>(`${this.lancamentosUrl}/${lancamento.id}`, {headers: this.headers})
-    .toPromise();
+    return this.http.put<Bill>(`${this.lancamentosUrl}/${lancamento.id}`, lancamento, {headers: this.headers})
+    .toPromise()
+    .then((response: any)=>{
+      this.converterStringsParaDatas([response]);
+      return response;
+    });
   }
 
   buscarPorCodigo(codigo: number): Promise<Bill|undefined>{

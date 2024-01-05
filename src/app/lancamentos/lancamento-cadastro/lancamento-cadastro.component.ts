@@ -40,7 +40,7 @@ export default class LancamentoCadastroComponent implements OnInit {
 
   ngOnInit(): void {
     const codigoLancamento = this.route.snapshot.params['id'];
-    if (codigoLancamento) {
+    if (codigoLancamento && codigoLancamento !== 'novo') {
       this.carregarLancamento(codigoLancamento);
     }
 
@@ -49,18 +49,18 @@ export default class LancamentoCadastroComponent implements OnInit {
   }
 
   get editando(): boolean {
-    return Boolean(this.bill.id)
+    return Boolean(this.bill.id);
   }
 
-
-  carregarLancamento(codigo: number){
-    this.lancamentoService.buscarPorCodigo(codigo)
-    .then(lancamento => {
-      if(lancamento){
-        this.bill = lancamento;
-      }
-    })
-    .catch(error => this.errorHandler.handle(error));
+  carregarLancamento(codigo: number) {
+    this.lancamentoService
+      .buscarPorCodigo(codigo)
+      .then((lancamento) => {
+        if (lancamento) {
+          this.bill = lancamento;
+        }
+      })
+      .catch((error) => this.errorHandler.handle(error));
   }
 
   carregarCategorias() {
@@ -91,20 +91,46 @@ export default class LancamentoCadastroComponent implements OnInit {
       });
   }
 
-  salvar(form: NgForm) {
-    this.lancamentoService.adicionar(this.bill)
-      .then(()=>{
+  salvar(form: NgForm){
+    if(this.editando){
+      this.atualizarLancamento(form);
+    }else{
+      this.adicionarLancamento(form);
+    }
+  }
+
+  adicionarLancamento(form: NgForm) {
+    this.lancamentoService
+      .adicionar(this.bill)
+      .then(() => {
         this.messageService.add({
           severity: 'success',
           summary: 'Sucesso',
           detail: 'Lançamento criado com sucesso',
-        })
+        });
         form.reset();
         this.bill = new Bill();
       })
-      .catch(error => this.errorHandler.handle(error));
-
+      .catch((error) => this.errorHandler.handle(error));
   }
 
+  atualizarLancamento(form: NgForm){
+    this.lancamentoService.atualizar(this.bill)
+    .then(lancamento => {
+      if(lancamento){
+        this.bill = lancamento;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: "Lançamento alterado com sucesso"
+        });
+      }
+    })
+    .catch(error => this.errorHandler.handle(error));
+  }
+
+  novo(form: NgForm){
+    form.reset();
+  }
 
 }
