@@ -113,8 +113,6 @@ export default class LancamentoCadastroComponent implements OnInit {
           summary: 'Sucesso',
           detail: 'Lançamento criado com sucesso',
         });
-        //form.reset();
-        //this.bill = new Bill();
         this.router.navigate(['/lancamentos', newBill?.id]);
       })
       .catch((error) => this.errorHandler.handle(error));

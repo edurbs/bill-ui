@@ -1,4 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
+import { Person } from 'src/app/core/model';
 import { PessoaFiltro, PessoaService } from '../pessoa.service';
 
 @Component({
@@ -18,6 +19,10 @@ export class PessoasPesquisaComponent implements OnInit {
 
   atualizarStatus(pessoa: any): Promise<any> {
     return this.pessoaService.atualizarStatus(pessoa);
+  }
+
+  atualizarPessoa(pessoa: Person): Promise<Person|undefined>{
+    return this.pessoaService.atualizarPessoa(pessoa);
   }
 
   pesquisar(pagina: number = 0) {

@@ -21,12 +21,12 @@
       <td class="col-cidade-content">{{pessoa.address.city}}</td>
       <td class="col-estado-content">{{pessoa.address.state}}</td>
       <td class="col-status-content">
-        <a href="#" (click)="atualizarStatus(pessoa)" pTooltip="{{pessoa.active === true ? 'Desativar' : 'Ativar'}}" tooltipPosition="top">
+        <a (click)="atualizarStatus(pessoa)" pTooltip="{{pessoa.active === true ? 'Desativar' : 'Ativar'}}" tooltipPosition="top">
           {{pessoa.active === true ? "Ativo" : "Inativo"}}
         </a>
       </td>
       <td class="col-acoes">
-        <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+        <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/pessoas', pessoa.id]"></a>
         <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(pessoa)"></button>
       </td>
     </tr>

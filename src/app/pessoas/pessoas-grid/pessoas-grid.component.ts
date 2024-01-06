@@ -23,15 +23,22 @@ export class PessoasGridComponent implements OnInit {
     this.pessoaPesquisaComponent.pesquisar(pagina);
   }
 
+
   atualizarStatus(pessoa: any) {
-    this.pessoaPesquisaComponent.atualizarStatus(pessoa).then(() => {
+    this.pessoaPesquisaComponent.atualizarStatus(pessoa)
+    .then(() => {
       this.grid.reset();
       this.messageService.add({
         severity: 'success',
         summary: 'Sucesso',
-        detail: 'Pessoa atualizada com sucesso',
+        detail: 'Status atualizado com sucesso',
       })
     })
+    .catch(error => this.messageService.add({
+      severity: 'error',
+      summary: 'Erro',
+      detail: "Erro ao atualizar o status: "+ error.error[0].userMessage
+    }));
   }
 
   confirmarExclusao(pessoa: any) {

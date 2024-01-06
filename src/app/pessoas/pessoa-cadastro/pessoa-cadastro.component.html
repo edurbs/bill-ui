@@ -55,8 +55,8 @@
 
       <div class="col-12">
         <button pButton type="submit" label="Salvar" [disabled]="!form.valid"></button>
-        <button pButton type="button" label="Novo"></button>
-        <a href="javascript:;">Voltar para a pesquisa</a>
+        <button pButton type="button" label="Novo" (click)="novo(form)"></button>
+        <a routerLink="/pessoas">Voltar para a pesquisa</a>
       </div>
 
     </div>
