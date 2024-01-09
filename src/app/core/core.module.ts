@@ -8,6 +8,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -40,6 +41,7 @@ registerLocaleData(localePt, 'pt-BR');
     MessageService,
     ConfirmationService,
     Title,
+    JwtHelperService,
 
     AuthService,
     LancamentoService,
