@@ -1,0 +1,14 @@
+<div class="container">
+  <form class="col-12 text-center" #loginForm="ngForm" autocomplete="off" (ngSubmit)="login(usuario.value, senha.value)">
+    <div class="col-12">
+      <h1>Login</h1>
+    </div>
+    <div class="col-12">
+      <input type="email" pInputText name="usuario" placeholder="E-mail" ngModel #usuario required>
+    </div>
+    <div class="col-12">
+      <input type="password" pInputText name="password" placeholder="Senha" ngModel #senha required>
+    </div>
+    <button pButton class="btn mt-3" type="submit" label="Login" [disabled]="loginForm.invalid"></button>
+  </form>
+</div>

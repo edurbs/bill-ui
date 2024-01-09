@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 class Cliente {
   nome!: string;
@@ -13,7 +14,11 @@ class Cliente {
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(private router: Router) {
 
+  }
+
+  exibindoNavbar(){
+    return this.router.url !== '/login';
   }
 }
