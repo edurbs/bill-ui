@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Person } from '../core/model';
 
@@ -12,10 +12,10 @@ export class PessoaFiltro {
   providedIn: 'root',
 })
 export class PessoaService {
-  headers: HttpHeaders = new HttpHeaders().append(
-    'Authorization',
-    'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-  );
+  // headers: HttpHeaders = new HttpHeaders().append(
+  //   'Authorization',
+  //   'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+  // );
 
   pessoasUrl = 'http://localhost:8080/persons';
 
@@ -23,9 +23,7 @@ export class PessoaService {
 
   buscarPorCodigo(codigoPessoa: Number): Promise<Person | undefined> {
     return this.httpClient
-      .get<Person>(`${this.pessoasUrl}/${codigoPessoa}`, {
-        headers: this.headers,
-      })
+      .get<Person>(`${this.pessoasUrl}/${codigoPessoa}`)
       .toPromise()
       .then((response) => {
         return response;
@@ -42,7 +40,6 @@ export class PessoaService {
 
     return this.httpClient
       .get(this.pessoasUrl, {
-        headers: this.headers,
         params,
       })
       .toPromise()
@@ -59,9 +56,7 @@ export class PessoaService {
 
   listarTodas(): Promise<any> {
     return this.httpClient
-      .get(this.pessoasUrl, {
-        headers: this.headers,
-      })
+      .get(this.pessoasUrl)
       .toPromise()
       .then((response: any) => response['content']);
   }
@@ -74,27 +69,25 @@ export class PessoaService {
       complementoUrl += 'activate';
     }
     return this.httpClient
-      .put<Person>(complementoUrl, null, { headers: this.headers })
+      .put<Person>(complementoUrl, null)
       .toPromise();
   }
 
   excluir(pessoa: any): Promise<any> {
     return this.httpClient
-      .delete<void>(`${this.pessoasUrl}/${pessoa.id}`, {
-        headers: this.headers,
-      })
+      .delete<void>(`${this.pessoasUrl}/${pessoa.id}`)
       .toPromise();
   }
 
   adicionar(pessoa: Person): Promise<Person | undefined> {
     return this.httpClient
-      .post<Person>(this.pessoasUrl, pessoa, { headers: this.headers })
+      .post<Person>(this.pessoasUrl, pessoa)
       .toPromise();
   }
 
   atualizarPessoa(person: Person): Promise<Person|undefined> {
     return this.httpClient
-      .put<Person>(`${this.pessoasUrl}/${person.id}`, person, {headers: this.headers})
+      .put<Person>(`${this.pessoasUrl}/${person.id}`, person)
       .toPromise();
   }
 }

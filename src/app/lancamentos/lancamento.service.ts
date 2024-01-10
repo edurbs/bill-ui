@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Bill } from '../core/model';
 
@@ -16,11 +16,6 @@ export class LancamentoFiltro {
 })
 export class LancamentoService {
   lancamentosUrl = 'http://localhost:8080/bills';
-
-  private headers: HttpHeaders = new HttpHeaders().append(
-    'Authorization',
-    'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-  );
 
   constructor(private http: HttpClient, private datePipe: DatePipe) {}
 
@@ -49,7 +44,6 @@ export class LancamentoService {
 
     return this.http
       .get(`${this.lancamentosUrl}/?projection`, {
-        headers: this.headers,
         params: params,
       })
       .toPromise()
@@ -67,20 +61,18 @@ export class LancamentoService {
 
   excluir(codigo: number): Promise<any> {
     return this.http
-      .delete<void>(`${this.lancamentosUrl}/${codigo}`, {
-        headers: this.headers,
-      })
+      .delete<void>(`${this.lancamentosUrl}/${codigo}`)
       .toPromise();
   }
 
   adicionar(lancamento: Bill): Promise<Bill | undefined> {
     return this.http
-      .post<Bill>(this.lancamentosUrl, lancamento, {headers: this.headers})
+      .post<Bill>(this.lancamentosUrl, lancamento)
       .toPromise();
   }
 
   atualizar (lancamento: |Bill): Promise<Bill|undefined>{
-    return this.http.put<Bill>(`${this.lancamentosUrl}/${lancamento.id}`, lancamento, {headers: this.headers})
+    return this.http.put<Bill>(`${this.lancamentosUrl}/${lancamento.id}`, lancamento)
     .toPromise()
     .then((response: any)=>{
       this.converterStringsParaDatas([response]);
@@ -89,7 +81,7 @@ export class LancamentoService {
   }
 
   buscarPorCodigo(codigo: number): Promise<Bill|undefined>{
-    return this.http.get<Bill>(`${this.lancamentosUrl}/${codigo}`, {headers: this.headers})
+    return this.http.get<Bill>(`${this.lancamentosUrl}/${codigo}`)
     .toPromise()
     .then((response: any)=>{
       this.converterStringsParaDatas([response]);
