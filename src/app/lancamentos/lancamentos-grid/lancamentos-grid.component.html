@@ -31,6 +31,7 @@
         [routerLink]="['/lancamentos', lancamento.id]" ></a>
 
         <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+        [disabled]="naoTemPermissao('ROLE_REMOVER_LANCAMENTO')"
         (click)="confirmarExclusao(lancamento)"></button>
 
       </td>

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/seguranca/auth.service';
 import { LancamentoFiltro } from '../lancamento.service';
 import { LancamentosPesquisaComponent } from '../lancamentos-pesquisa/lancamentos-pesquisa.component';
 
@@ -20,12 +21,11 @@ export class LancamentosGridComponent implements OnInit {
     private lancamentosPesquisaComponent: LancamentosPesquisaComponent,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private auth: AuthService
   ) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   aoMudarPagina(event: LazyLoadEvent) {
     let pagina = 0;
@@ -41,7 +41,7 @@ export class LancamentosGridComponent implements OnInit {
       accept: () => {
         this.excluir(lancamento);
       },
-    })
+    });
   }
 
   excluir(lancamento: any) {
@@ -51,7 +51,10 @@ export class LancamentosGridComponent implements OnInit {
         severity: 'success',
         summary: 'Sucesso',
         detail: 'Lançamento excluído com sucesso',
-      })
+      });
     });
+  }
+  naoTemPermissao(permissao: string) {
+    return !this.auth.temPermissao(permissao);
   }
 }

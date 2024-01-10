@@ -7,20 +7,22 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
   oauthTokenUrl = 'http://localhost:8080/oauth/token';
+  headers: HttpHeaders = new HttpHeaders()
+    .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==')
+    .append('Content-Type', 'application/x-www-form-urlencoded');
   jwtPayload: any;
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
     this.carregarToken();
-    console.log(this.jwtPayload);
   }
 
   login(usuario: string, senha: string): Promise<void> {
-    const headers: HttpHeaders = new HttpHeaders()
-      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==')
-      .append('Content-Type', 'application/x-www-form-urlencoded');
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
     return this.http
-      .post(this.oauthTokenUrl, body, { headers: headers })
+      .post(this.oauthTokenUrl, body, {
+        headers: this.headers,
+        withCredentials: true,
+      })
       .toPromise()
       .then((response: any) => {
         this.armazenarToken(response['access_token']);
@@ -51,4 +53,34 @@ export class AuthService {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
   }
 
+  temQualquerPermissao(roles:any){
+    for(const role of roles){
+      if(this.temPermissao(role)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  obterNovoAccessToken(): Promise<void> {
+    const body = 'grant_type=refresh_token';
+    return this.http
+      .post(this.oauthTokenUrl, body, {
+        headers: this.headers,
+        withCredentials: true,
+      })
+      .toPromise()
+      .then((response: any) => {
+        this.armazenarToken(response['access_token']);
+        return Promise.resolve();
+      })
+      .catch((response) => {
+        return Promise.resolve();
+      });
+  }
+
+  isAccessTokenInvalido() {
+    const token = localStorage.getItem('token');
+    return !token || this.jwtHelper.isTokenExpired(token);
+  }
 }
