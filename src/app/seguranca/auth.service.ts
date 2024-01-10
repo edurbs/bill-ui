@@ -24,11 +24,12 @@ export class AuthService {
     return this.http.post(this.oauthTokenUrl, body, {headers: headers})
     .toPromise()
     .then((response: any) => {
-      console.log(response);
       this.armazenarToken(response['access_token']);
-      console.log(this.jwtPayload);
     }).catch(response => {
-      console.log(response);
+      if(response.status === 400 && response.error.error === 'invalid_grant'){
+        return Promise.reject('Usuário ou senha inválido!');
+      }
+      return Promise.reject(response);
     } );
   }
   armazenarToken(token: string) {

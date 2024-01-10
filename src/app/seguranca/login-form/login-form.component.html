@@ -1,5 +1,6 @@
 <div class="container">
-  <form class="col-12 text-center" #loginForm="ngForm" autocomplete="off" (ngSubmit)="login(usuario.value, senha.value)">
+  <form class="col-12 text-center" #loginForm="ngForm" autocomplete="off"
+  (ngSubmit)="login(usuario.value, senha.value); senha.value='';">
     <div class="col-12">
       <h1>Login</h1>
     </div>
