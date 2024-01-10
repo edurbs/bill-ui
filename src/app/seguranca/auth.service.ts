@@ -1,18 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  oauthTokenUrl = 'http://localhost:8080/oauth/token';
+  oauthTokenUrl: string;
   headers: HttpHeaders = new HttpHeaders()
     .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==')
     .append('Content-Type', 'application/x-www-form-urlencoded');
   jwtPayload: any;
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
+    this.oauthTokenUrl = environment.apiUrl + '/oauth/token';
     this.carregarToken();
   }
 
@@ -90,7 +92,7 @@ export class AuthService {
   }
 
   logout(){
-    const tokensRevokeUrl = 'http://localhost:8080/tokens/revoke';
+    const tokensRevokeUrl = environment.apiUrl + '/tokens/revoke';
     return this.http.delete(tokensRevokeUrl, { withCredentials: true })
       .toPromise()
       .then(()=>{

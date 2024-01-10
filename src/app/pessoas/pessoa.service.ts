@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Person } from '../core/model';
 
 export class PessoaFiltro {
@@ -12,14 +13,11 @@ export class PessoaFiltro {
   providedIn: 'root',
 })
 export class PessoaService {
-  // headers: HttpHeaders = new HttpHeaders().append(
-  //   'Authorization',
-  //   'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-  // );
+  pessoasUrl : string;
 
-  pessoasUrl = 'http://localhost:8080/persons';
-
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    this.pessoasUrl = environment.apiUrl + '/persons';
+  }
 
   buscarPorCodigo(codigoPessoa: Number): Promise<Person | undefined> {
     return this.httpClient

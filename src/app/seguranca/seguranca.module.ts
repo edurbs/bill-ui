@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { environment } from 'src/environments/environment';
 import { AuthGuard } from './auth.guard';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { MoneyHttpInterceptor } from './money-http-interceptor';
@@ -17,9 +18,7 @@ export function tokenGetter(): string | null {
 
 
 @NgModule({
-  declarations: [
-    LoginFormComponent
-  ],
+  declarations: [LoginFormComponent],
   imports: [
     CommonModule,
     InputTextModule,
@@ -29,22 +28,19 @@ export function tokenGetter(): string | null {
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        allowedDomains: ['localhost:8080'],
-        disallowedRoutes: ['http://localhost:8080/oauth/token']
-      }
-    })
+        allowedDomains: environment.tokenAllowedDomains,
+        disallowedRoutes: environment.tokenDisallowedRoutes,
+      },
+    }),
   ],
-  providers : [
+  providers: [
     JwtHelperService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MoneyHttpInterceptor,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class SegurancaModule {
-
-
- }
+export class SegurancaModule {}
