@@ -83,4 +83,18 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !token || this.jwtHelper.isTokenExpired(token);
   }
+
+  limparAccessToken(){
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
+  }
+
+  logout(){
+    const tokensRevokeUrl = 'http://localhost:8080/tokens/revoke';
+    return this.http.delete(tokensRevokeUrl, { withCredentials: true })
+      .toPromise()
+      .then(()=>{
+        this.limparAccessToken();
+      });
+  }
 }
