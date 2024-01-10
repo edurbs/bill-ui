@@ -4,9 +4,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -16,8 +14,8 @@ import { LancamentoService } from '../lancamentos/lancamento.service';
 import { PessoaService } from '../pessoas/pessoa.service';
 import { AuthService } from '../seguranca/auth.service';
 import { ErrorHandlerService } from './error-handler.service';
-import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { NaoAutorizadoComponent } from './nao-autorizado.component';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -25,8 +23,6 @@ registerLocaleData(localePt, 'pt-BR');
   declarations: [NavbarComponent, PaginaNaoEncontradaComponent, NaoAutorizadoComponent],
   imports: [
     HttpClientModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     CommonModule,
     ToastModule,
     ConfirmDialogModule,

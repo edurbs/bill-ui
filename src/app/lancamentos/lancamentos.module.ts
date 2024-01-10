@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -31,7 +29,7 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    BrowserModule,
+    //BrowserModule,
     TabViewModule,
     InputTextModule,
     ButtonModule,
@@ -39,7 +37,7 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
     TooltipModule,
     InputTextareaModule,
     CalendarModule,
-    BrowserAnimationsModule,
+    //BrowserAnimationsModule,
     SelectButtonModule,
     DropdownModule,
     InputNumberModule,
