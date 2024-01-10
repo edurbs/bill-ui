@@ -1,5 +1,5 @@
 <div class="container">
-  <form #form="ngForm" (ngSubmit)="salvar(form)">
+  <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
     <div class="grid">
 
       <div class="col-12">
@@ -7,56 +7,56 @@
       </div>
 
       <div class="col-12">
-        <p-selectButton [options]="tipos" #tipo [(ngModel)]="bill.type" name="type"></p-selectButton>
+        <p-selectButton [options]="tipos" name="tipos" formControlName="type" ></p-selectButton>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
         <label>Vencimento </label>
-        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" [required]="true" name="dueDate" [(ngModel)]="bill.dueDate" #vencimento="ngModel" ></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" name="dueDate" formControlName="dueDate" ></p-calendar>
+        <app-message [control]="formulario.get('dueDate')" error="required" text="Informe uma data de vencimento"></app-message>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
-        <label>{{tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}} </label>
-        <p-calendar [(ngModel)]="bill.payDate" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true" name="payDate" ngModel #pagamento="ngModel"></p-calendar>
+        <label>{{formulario.get('type')?.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}} </label>
+        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" [required]="true" name="payDate" formControlName="dueDate"></p-calendar>
       </div>
 
       <div class="col-12 md:col-9 p-fluid">
         <label>Descrição </label>
-        <input  [(ngModel)]="bill.description" pInputText type="text" name="description" ngModel #descricao="ngModel"
-         minlength="5" required>
+        <input  pInputText type="text" name="description" formControlName="description">
 
-        <app-message [control]="descricao.control" error="required"
+        <app-message [control]="formulario.get('description')" error="required"
         text="Informe uma descrição"></app-message>
 
-        <app-message [control]="descricao.control" error="minlength"
-        text="Mínimo de {{descricao.errors?.['minlength']?.requiredLength}}"></app-message>
+        <app-message [control]="formulario.get('description')" error="minlength"
+        text="Mínimo de {{formulario.get('description')?.errors?.['minlength']?.requiredLength}}"></app-message>
 
       </div>
 
       <div class="col-12 md:col-3 p-fluid">
         <label>Valor </label>
-        <p-inputNumber [(ngModel)]="bill.amount" mode="currency" currency="BRL" placeholder="0,00" [required]="true" ngModel #valor="ngModel" name="amount"></p-inputNumber>
+        <p-inputNumber  mode="currency" currency="BRL" placeholder="0,00" name="amount" formControlName="amount"></p-inputNumber>
       </div>
 
-      <div class="col-12 md:col-6 p-fluid">
-        <label>Categoria {{categoria.value}} </label>
-        <p-dropdown [(ngModel)]="bill.category!.id" [options]="categorias" placeholder="Selecione" ngModel #categoria="ngModel" [required]="true" name="category"></p-dropdown>
+      <div class="col-12 md:col-6 p-fluid" formGroupName="category">
+        <label>Categoria</label>
+        <p-dropdown [options]="categorias" placeholder="Selecione" name="category" formControlName="id"></p-dropdown>
       </div>
 
-      <div class="col-12 md:col-6 p-fluid">
-        <label>Pessoa {{pessoa.value}} </label>
-        <p-dropdown [(ngModel)]="bill.person!.id" [options]="pessoas" ngModel [filter]="true" placeholder="Selecione" #pessoa="ngModel" [required]="true" name="personId"></p-dropdown>
-        <app-message [control]="pessoa.control" error="required" text="Informe uma pessoa"></app-message>
+      <div class="col-12 md:col-6 p-fluid" formGroupName="person">
+        <label>Pessoa </label>
+        <p-dropdown  [options]="pessoas" [filter]="true" placeholder="Selecione" name="personId" formControlName="id"></p-dropdown>
+
       </div>
 
       <div class="col-12 md:col-12 p-fluid">
         <label>Observação </label>
-        <textarea [(ngModel)]="bill.notes" name="notes" pInputTextarea rows="3"></textarea>
+        <textarea name="notes" pInputTextarea rows="3" formControlName="notes"></textarea>
       </div>
 
       <div class="col-12">
-        <button pButton type="submit" label="Salvar" [disabled]="form.invalid"></button>
-        <button pButton type="button" label="Novo" class="p-button-info" (click)="novo(form)"></button>
+        <button pButton type="submit" label="Salvar" [disabled]="formulario.invalid"></button>
+        <button pButton type="button" label="Novo" class="p-button-info" (click)="novo()"></button>
         <a routerLink="/lancamentos">Voltar para a pesquisa</a>
       </div>
 
