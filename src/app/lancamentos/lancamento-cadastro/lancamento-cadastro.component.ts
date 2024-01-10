@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -61,7 +61,7 @@ export default class LancamentoCadastroComponent implements OnInit {
       type: ['RECEITA', Validators.required],
       dueDate: [null, Validators.required],
       payDate: [],
-      description: [null, [Validators.required, Validators.minLength(5)]],
+      description: [null, [this.validarObrigatoriedade, this.validarTamanhoMinimo(5)]],
       amount: [null, Validators.required],
       person: this.formBuilder.group({
         id: [null, Validators.required],
@@ -73,6 +73,22 @@ export default class LancamentoCadastroComponent implements OnInit {
       }),
       notes: []
     });
+  }
+
+  validaDataPagamento(input: FormControl){
+    const dataVencimento = input.root.get('dueDate')?.value;
+    const dataPagamento = input.root.get('dueDate')?.value;
+    // exemplo de validação que depende de outros campos
+  }
+
+  validarObrigatoriedade(input: FormControl){
+    return (input.value ? null : { obrigatoriedade: true})
+  }
+
+  validarTamanhoMinimo(valor: number){
+    return (input: FormControl) => {
+      return (!input.value || input.value.length >= valor) ? null : {tamanhoMinimo: {tamanho: valor}};
+    }
   }
 
   get editando(): boolean {
